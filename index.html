@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carell Productions™ | Official Showcase</title>
+    <style>
+        :root {
+            --bg: #09090b;
+            --surface: #141419;
+            --surface-card: #1d1d24;
+            --accent: #6366f1;
+            --accent-glow: rgba(99, 102, 241, 0.2);
+            --text-main: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --border: #2e2e38;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
+            padding-bottom: 60px;
+        }
+
+        /* Artistic Scattered Background Icons Canvas */
+        .bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
+        }
+
+        .floating-icon {
+            position: absolute;
+            font-size: 28px;
+            opacity: 0.15;
+            filter: blur(0.5px);
+            animation: floatSlow 8s infinite ease-in-out;
+        }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(10deg); }
+        }
+
+        /* Main Structural Containers */
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+            background: linear-gradient(to right, #ffffff, #a1a1aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .showcase-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        @media (min-width: 768px) {
+            .grid-layout {
+                grid-template-columns: 3fr 2fr;
+            }
+            .full-width-block {
+                grid-column: span 2;
+            }
+        }
+
+        /* Desk Scrapboard Cards Design */
+        .desk-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--accent);
+            margin-bottom: 12px;
+            background: var(--accent-glow);
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .desk-card h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        /* Interactive Video Block (Cinema Theater) */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: #000;
+            margin-top: 15px;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Lyric Peek Selector Deck */
+        .track-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .track-row {
+            background: var(--surface-card);
+            border: 1px solid var(--border);
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .track-row:hover {
+            border-color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        .track-row.active {
+            background: var(--accent-glow);
+            border-color: var(--accent);
+        }
+
+        .lyric-display-box {
+            background: #0d0d11;
+            border: 1px solid var(--border);
+            padding: 16px;
+            border-radius: 8px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            min-height: 120px;
+            max-height: 180px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+
+        /* Director Profile Formatting */
+        .profile-bio {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .profile-bio p {
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Art Canvas Layer -->
+    <div class="bg-canvas">
+        <span class="floating-icon" style="top: 15%; left: 8%; animation-delay: 0s;">🎥</span>
+        <span class="floating-icon" style="top: 45%; left: 5%; animation-delay: 2s;">✏️</span>
+        <span class="floating-icon" style="top: 75%; left: 12%; animation-delay: 4s;">🎹</span>
+        <span class="floating-icon" style="top: 25%; right: 8%; animation-delay: 1s;">🎤</span>
+        <span class="floating-icon" style="top: 55%; right: 4%; animation-delay: 3s;">🎬</span>
+        <span class="floating-icon" style="top: 85%; right: 10%; animation-delay: 5s;">📝</span>
+    </div>
+
+    <!-- Website Header Header -->
+    <header>
+        <h1>Carell Productions™</h1>
+        <p>Arts • Architecture • Film</p>
+    </header>
+
+    <!-- Main Dynamic Interface Grid -->
+    <div class="showcase-container">
+        <div class="grid-layout">
+            
+            <!-- FEATURE 1: DYNAMIC MUSIC VIDEO PLAYER -->
+            <div class="desk-card full-width-block">
+                <div class="card-tag">🎥 Production Screening Room</div>
+                <h2>Featured Video Release</h2>
+                <p style="color: var(--text-muted); font-size: 14px;">Take a look inside our latest multimedia development piece.</p>
+                
+                <div class="video-wrapper">
+                    <!-- Replace the YouTube ID 'dQw4w9WgXcQ' with your own music video ID later! -->
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <!-- FEATURE 2: INTERACTIVE LYRICS SNEAK PEEK -->
+            <div class="desk-card">
+                <div class="card-tag">🎤 Album Board Outlines</div>
+                <h2>Interactive Track Sneak Peeks</h2>
+                <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 15px;">Tap an upcoming track file to peek directly at the lyric notebook drafts.</p>
+                
+                <div class="track-list">
+                    <div class="track-row active" onclick="showLyrics('track1', this)">
+                        <span>🎼 1. Project "Secret" Intro</span>
+                        <span style="font-size: 11px; color: var(--accent);">Tap Draft →</span>
+                    </div>
+                    <div class="track-row" onclick="showLyrics('track2', this)">
+                        <span>🎹 2. Concrete Architectural Lines</span>
+                        <span style="font-size: 11px; color: var(--accent);">Tap Draft →</span>
+                    </div>
+                    <div class="track-row" onclick="showLyrics('track3', this)">
+                        <span>📝 3. Midnight Scene Outline</span>
+                        <span style="font-size: 11px; color: var(--accent);">Tap Draft →</span>
+                    </div>
+                </div>
+
+                <div class="lyric-display-box" id="lyricBox">Loading track draft sheets...</div>
+            </div>
+
+            <!-- FEATURE 3: CLEAN DIRECTOR'S NOTEBOOK BIO -->
+            <div class="desk-card">
+                <div class="card-tag">✏️ From the Studio Desk</div>
+                <h2>Meet the Architect</h2>
+                <div class="profile-bio" style="margin-top: 12px;">
+                    <p>Growing up in a home full of musical expression and performance art, creating visual and sonic experiences became second nature from a very young age.</p>
+                    <p>Fusing music production, film directing, and architectural structure, I construct original multi-sensory worlds.</p>
+                    <p style="color: var(--text-main); font-weight: 500;">— Cannon, Upcoming Professional Director</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Interactive Database for Lyric Draft Previews
+        const lyricDatabase = {
+            track1: `[Project "Secret" Intro - Verse 1]\n\nHidden keys on a grand scale,\nTracing lines where the plans fail.\nBehind curtains, the tape spins wide,\nWelcome to the space we build inside...`,
+            track2: `[Concrete Architectural Lines - Chorus]\n\nDraw the blueprint, frame the light,\nStructured notes moving through the night.\nFrom foundations up to the sky,\nWe make the shapes that never die...`,
+            track3: `[Midnight Scene Outline - Bridge]\n\n(Camera cuts to a low light view)\nSteps echo down a quiet room,\nPiano fading out into the gloom.\nAction speaks before the words can run,\nWe tell the stories under the sun...`
+        };
+
+        function showLyrics(trackKey, element) {
+            // Update active track styles
+            document.querySelectorAll('.track-row').forEach(row => row.classList.remove('active'));
+            element.classList.add('active');
+            
+            // Switch current text inside the viewer frame
+            document.getElementById('lyricBox').innerText = lyricDatabase[trackKey];
+        }
+
+        // Initialize the viewer page with the first track configuration load
+        window.onload = function() {
+            document.getElementById('lyricBox').innerText = lyricDatabase.track1;
+        }
+    </script>
+</body>
+</html>
