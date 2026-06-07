@@ -16,9 +16,8 @@
             --border: #2e2e38;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-
-        body { background-color: var(--bg); color: var(--text-main); overflow-x: hidden; position: relative; padding-bottom: 60px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+        body { background-color: var(--bg); color: var(--text-main); overflow-x: hidden; }
 
         /* CINEMATIC INTRO */
         .cinema-intro-overlay {
@@ -28,22 +27,20 @@
             opacity: 1; transition: opacity 0.8s, filter 0.8s, visibility 0.8s;
         }
         .cinema-intro-overlay.fade-away { opacity: 0; filter: blur(20px) brightness(1.5); visibility: hidden; pointer-events: none; }
-        
         .intro-matrix-box { display: flex; gap: 15px; opacity: 0; animation: introReveal 0.6s forwards 0.2s; }
         .intro-emoji { font-size: 42px; animation: emojiPulse 2s infinite ease-in-out; }
         .intro-brand { margin-top: 25px; font-size: 18px; font-weight: 700; letter-spacing: 2px; color: #ffffff; text-transform: uppercase; opacity: 0; animation: introReveal 0.6s forwards 0.8s; }
-
         @keyframes introReveal { to { opacity: 1; transform: scale(1); } }
         @keyframes emojiPulse { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-8px) scale(1.08); } }
 
-        /* MAIN SITE STYLING */
-        .bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; background: radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 50%); }
+        /* MAIN UI */
         .public-nav { background: rgba(20, 20, 25, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 15px 30px; display: flex; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
-        header { text-align: center; padding: 40px 20px 50px 20px; }
-        header h1 { font-size: 42px; font-weight: 800; background: linear-gradient(to right, #ffffff, #a1a1aa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .showcase-container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        .showcase-container { max-width: 900px; margin: 0 auto; padding: 20px; }
         .desk-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 25px; transition: 0.4s; }
         .desk-card:hover { transform: translateY(-6px); border-color: var(--accent); }
+        .track-row { background: var(--surface-card); border: 1px solid var(--border); padding: 12px; margin: 8px 0; cursor: pointer; border-radius: 8px; }
+        .track-row:hover { border-color: var(--accent); }
+        .lyric-box { background: #0d0d11; padding: 15px; border-radius: 8px; border: 1px solid var(--border); margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -60,20 +57,31 @@
         <div>Carell Productions™</div>
     </nav>
 
-    <header>
-        <h1>Carell Productions™</h1>
-    </header>
-
     <div class="showcase-container">
         <div class="desk-card">
-            <h2>Welcome to the Studio</h2>
-            <p>Our official showcase is now live.</p>
+            <h2>Production Screening Room</h2>
+            <div style="background:#000; height:200px; display:flex; align-items:center; justify-content:center; color:var(--text-muted);">
+                [Video Player Placeholder]
+            </div>
+        </div>
+
+        <div class="desk-card">
+            <h2>Track Sneak Peeks</h2>
+            <div class="track-row" onclick="alert('Playing Track 1...')">🎼 1. Project "Secret"</div>
+            <div class="track-row" onclick="alert('Playing Track 2...')">🎹 2. Concrete Lines</div>
+            <div class="lyric-box" id="lyricBox">Select a track to view lyrics...</div>
         </div>
     </div>
 
     <script>
+        // Intro Timer
         window.onload = function() {
             setTimeout(() => { document.getElementById('introOverlay').classList.add('fade-away'); }, 2500); 
+        }
+
+        // Lyric Logic
+        function alert(msg) { 
+            document.getElementById('lyricBox').innerText = "Now playing: " + msg; 
         }
     </script>
 </body>
