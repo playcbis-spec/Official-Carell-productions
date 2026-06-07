@@ -14,431 +14,66 @@
             --text-main: #f4f4f5;
             --text-muted: #a1a1aa;
             --border: #2e2e38;
-            --success: #10b981;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
 
-        body {
-            background-color: var(--bg);
-            color: var(--text-main);
-            overflow-x: hidden;
-            position: relative;
-            padding-bottom: 60px;
-        }
+        body { background-color: var(--bg); color: var(--text-main); overflow-x: hidden; position: relative; padding-bottom: 60px; }
 
-        /* Artistic Scattered Background Icons Canvas */
-        .bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
+        /* CINEMATIC INTRO */
+        .cinema-intro-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #050507; z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            opacity: 1; transition: opacity 0.8s, filter 0.8s, visibility 0.8s;
         }
+        .cinema-intro-overlay.fade-away { opacity: 0; filter: blur(20px) brightness(1.5); visibility: hidden; pointer-events: none; }
+        
+        .intro-matrix-box { display: flex; gap: 15px; opacity: 0; animation: introReveal 0.6s forwards 0.2s; }
+        .intro-emoji { font-size: 42px; animation: emojiPulse 2s infinite ease-in-out; }
+        .intro-brand { margin-top: 25px; font-size: 18px; font-weight: 700; letter-spacing: 2px; color: #ffffff; text-transform: uppercase; opacity: 0; animation: introReveal 0.6s forwards 0.8s; }
 
-        .floating-icon {
-            position: absolute;
-            font-size: 28px;
-            opacity: 0.15;
-            filter: blur(0.5px);
-            animation: floatSlow 8s infinite ease-in-out;
-        }
+        @keyframes introReveal { to { opacity: 1; transform: scale(1); } }
+        @keyframes emojiPulse { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-8px) scale(1.08); } }
 
-        @keyframes floatSlow {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(10deg); }
-        }
-
-        /* Top Navigation Header Bar */
-        .public-nav {
-            background: rgba(20, 20, 25, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-        }
-
-        .nav-brand {
-            font-size: 16px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            background: linear-gradient(to right, #ffffff, #a1a1aa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .donation-nav-btn {
-            background: var(--accent-glow);
-            border: 1px solid var(--accent);
-            color: #ffffff;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .donation-nav-btn:hover {
-            background: var(--accent);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-        }
-
-        /* Main Structural Containers */
-        header {
-            text-align: center;
-            padding: 40px 20px 50px 20px;
-            position: relative;
-        }
-
-        header h1 {
-            font-size: 42px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            margin-bottom: 8px;
-            background: linear-gradient(to right, #ffffff, #a1a1aa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        header p {
-            color: var(--accent);
-            font-size: 13px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .showcase-container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .grid-layout {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 25px;
-        }
-
-        @media (min-width: 768px) {
-            .grid-layout {
-                grid-template-columns: 3fr 2fr;
-            }
-            .full-width-block {
-                grid-column: span 2;
-            }
-        }
-
-        /* Desk Scrapboard Cards Design */
-        .desk-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 11px;
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            color: var(--accent);
-            margin-bottom: 12px;
-            background: var(--accent-glow);
-            padding: 4px 10px;
-            border-radius: 20px;
-        }
-
-        .desk-card h2 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        /* Interactive Video Block (Cinema Theater) */
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            background: #000;
-            margin-top: 15px;
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Lyric Peek Selector Deck */
-        .track-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-
-        .track-row {
-            background: var(--surface-card);
-            border: 1px solid var(--border);
-            padding: 12px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.2s;
-        }
-
-        .track-row:hover {
-            border-color: var(--accent);
-            transform: translateX(4px);
-        }
-
-        .track-row.active {
-            background: var(--accent-glow);
-            border-color: var(--accent);
-        }
-
-        .lyric-display-box {
-            background: #0d0d11;
-            border: 1px solid var(--border);
-            padding: 16px;
-            border-radius: 8px;
-            font-family: "Courier New", Courier, monospace;
-            font-size: 13px;
-            line-height: 1.6;
-            color: var(--text-muted);
-            min-height: 120px;
-            max-height: 180px;
-            overflow-y: auto;
-            white-space: pre-wrap;
-        }
-
-        /* Director Profile Formatting */
-        .profile-bio {
-            font-size: 14px;
-            line-height: 1.6;
-            color: var(--text-muted);
-        }
-        .profile-bio p {
-            margin-bottom: 12px;
-        }
-
-        /* Donation Modal Window System */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            z-index: 100;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .modal-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            max-width: 450px;
-            width: 100%;
-            padding: 30px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-            text-align: center;
-            position: relative;
-        }
-
-        .close-modal-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 20px;
-            cursor: pointer;
-        }
-        .close-modal-btn:hover { color: #ffffff; }
-
-        .wip-banner {
-            background: rgba(245, 158, 11, 0.1);
-            border: 1px dashed #f59e0b;
-            color: #f59e0b;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
-            display: inline-block;
-        }
+        /* MAIN SITE STYLING */
+        .bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; background: radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 50%); }
+        .public-nav { background: rgba(20, 20, 25, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 15px 30px; display: flex; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
+        header { text-align: center; padding: 40px 20px 50px 20px; }
+        header h1 { font-size: 42px; font-weight: 800; background: linear-gradient(to right, #ffffff, #a1a1aa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .showcase-container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        .desk-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 25px; transition: 0.4s; }
+        .desk-card:hover { transform: translateY(-6px); border-color: var(--accent); }
     </style>
 </head>
 <body>
 
-    <!-- Top Navigation Utility Bar -->
+    <div id="introOverlay" class="cinema-intro-overlay">
+        <div class="intro-matrix-box">
+            <span class="intro-emoji">🎥</span><span class="intro-emoji">✏️</span><span class="intro-emoji">🎹</span>
+            <span class="intro-emoji">🎤</span><span class="intro-emoji">🎬</span><span class="intro-emoji">📝</span>
+        </div>
+        <h2 class="intro-brand">Carell Productions™</h2>
+    </div>
+
     <nav class="public-nav">
-        <div class="nav-brand">Carell Productions™</div>
-        <button class="donation-nav-btn" onclick="openDonationModal()">🎁 Support Our Team</button>
+        <div>Carell Productions™</div>
     </nav>
 
-    <!-- Donation Modal Popup Screen -->
-    <div id="donationModal" class="modal-overlay" onclick="closeDonationModal()">
-        <div class="modal-card" onclick="event.stopPropagation()">
-            <button class="close-modal-btn" onclick="closeDonationModal()">✕</button>
-            
-            <div class="wip-banner">⚠️ Work In Progress</div>
-            <h3 style="font-size: 22px; margin-bottom: 10px;">Support Carell Productions™</h3>
-            
-            <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">
-                We are currently establishing our official business channels to safely process studio contributions. 
-                Once finalized, direct donations will go right toward funding our upcoming films, equipment, and tracking lists!
-            </p>
-
-            <div style="background: #0d0d11; border: 1px solid var(--border); padding: 15px; border-radius: 10px; font-size: 13px; color: var(--text-muted);">
-                <div style="font-weight: 600; color: var(--accent); text-transform: uppercase; font-size: 11px; margin-bottom: 4px;">Future Business Channel</div>
-                <!-- When your email is ready, we'll swap the line below to show it live! -->
-                <span id="businessEmailPlaceholder" style="font-family: monospace; font-size: 14px;">[ Secure Portal Configuration Finalizing ]</span>
-            </div>
-
-            <button onclick="closeDonationModal()" style="width: 100%; margin-top: 20px; background: var(--border); color: white; padding: 12px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Return to Main Desk</button>
-        </div>
-    </div>
-
-    <!-- Background Art Canvas Layer -->
-    <div class="bg-canvas">
-        <span class="floating-icon" style="top: 15%; left: 8%; animation-delay: 0s;">🎥</span>
-        <span class="floating-icon" style="top: 45%; left: 5%; animation-delay: 2s;">✏️</span>
-        <span class="floating-icon" style="top: 75%; left: 12%; animation-delay: 4s;">🎹</span>
-        <span class="floating-icon" style="top: 25%; right: 8%; animation-delay: 1s;">🎤</span>
-        <span class="floating-icon" style="top: 55%; right: 4%; animation-delay: 3s;">🎬</span>
-        <span class="floating-icon" style="top: 85%; right: 10%; animation-delay: 5s;">📝</span>
-    </div>
-
-    <!-- Website Header Header -->
     <header>
         <h1>Carell Productions™</h1>
-        <p>Arts • Architecture • Film</p>
     </header>
 
-    <!-- Main Dynamic Interface Grid -->
     <div class="showcase-container">
-        <div class="grid-layout">
-            
-            <!-- FEATURE 1: DYNAMIC MUSIC VIDEO PLAYER -->
-            <div class="desk-card full-width-block">
-                <div class="card-tag">🎥 Production Screening Room</div>
-                <h2>Featured Video Release</h2>
-                <p style="color: var(--text-muted); font-size: 14px;">Take a look inside our latest multimedia development piece.</p>
-                
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-            </div>
-
-            <!-- FEATURE 2: INTERACTIVE LYRICS SNEAK PEEK -->
-            <div class="desk-card">
-                <div class="card-tag">🎤 Album Board Outlines</div>
-                <h2>Interactive Track Sneak Peeks</h2>
-                <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 15px;">Tap an upcoming track file to peek directly at the lyric notebook drafts.</p>
-                
-                <div class="track-list">
-                    <div class="track-row active" onclick="showLyrics('track1', this)">
-                        <span>🎼 1. Project "Secret" Intro</span>
-                        <span style="font-size: 11px; color: var(--accent);">Tap Draft →</span>
-                    </div>
-                    <div class="track-row" onclick="showLyrics('track2', this)">
-                        <span>🎹 2. Concrete Architectural Lines</span>
-                        <span style="font-size: 11px; color: var(--accent);">Tap Draft →</span>
-                    </div>
-                    <div class="track-row" onclick="showLyrics('track3', this)">
-                        <span>📝 3. Midnight Scene Outline</span>
-                        <span style="font-size: 11px; color: var(--accent);">Tap Draft →</span>
-                    </div>
-                </div>
-
-                <div class="lyric-display-box" id="lyricBox">Loading track draft sheets...</div>
-            </div>
-
-            <!-- FEATURE 3: CLEAN DIRECTOR'S NOTEBOOK BIO -->
-            <div class="desk-card">
-                <div class="card-tag">✏️ From the Studio Desk</div>
-                <h2>Meet the Architect</h2>
-                <div class="profile-bio" style="margin-top: 12px;">
-                    <p>Growing up in a home full of musical expression and performance art, creating visual and sonic experiences became second nature from a very young age.</p>
-                    <p>Fusing music production, film directing, and architectural structure, I construct original multi-sensory worlds.</p>
-                    <p style="color: var(--text-main); font-weight: 500;">— Cannon, Upcoming Professional Director</p>
-                </div>
-            </div>
-
+        <div class="desk-card">
+            <h2>Welcome to the Studio</h2>
+            <p>Our official showcase is now live.</p>
         </div>
     </div>
 
     <script>
-        // Donation System Handlers
-        function openDonationModal() {
-            document.getElementById('donationModal').style.display = 'flex';
-        }
-
-        function closeDonationModal() {
-            document.getElementById('donationModal').style.display = 'none';
-        }
-
-        // Interactive Database for Lyric Draft Previews
-        const lyricDatabase = {
-            track1: `[Project "Secret" Intro - Verse 1]\n\nHidden keys on a grand scale,\nTracing lines where the plans fail.\nBehind curtains, the tape spins wide,\nWelcome to the space we build inside...`,
-            track2: `[Concrete Architectural Lines - Chorus]\n\nDraw the blueprint, frame the light,\nStructured notes moving through the night.\nFrom foundations up to the sky,\nWe make the shapes that never die...`,
-            track3: `[Midnight Scene Outline - Bridge]\n\n(Camera cuts to a low light view)\nSteps echo down a quiet room,\nPiano fading out into the gloom.\nAction speaks before the words can run,\nWe tell the stories under the sun...`
-        };
-
-        function showLyrics(trackKey, element) {
-            document.querySelectorAll('.track-row').forEach(row => row.classList.remove('active'));
-            element.classList.add('active');
-            document.getElementById('lyricBox').innerText = lyricDatabase[trackKey];
-        }
-
         window.onload = function() {
-            document.getElementById('lyricBox').innerText = lyricDatabase.track1;
+            setTimeout(() => { document.getElementById('introOverlay').classList.add('fade-away'); }, 2500); 
         }
     </script>
 </body>
