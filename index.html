@@ -3,17 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carell Productions™ | Official Showcase</title>
+    <title>Carell Productions™ Staff Portal</title>
     <style>
+        /* Modern App Styling Themes */
         :root {
-            --bg: #09090b;
-            --surface: #141419;
-            --surface-card: #1d1d24;
+            --bg-color: #0a0a0c;
+            --card-bg: #121215;
+            --card-sub: #18181c;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
             --accent: #6366f1;
-            --accent-glow: rgba(99, 102, 241, 0.2);
-            --text-main: #f4f4f5;
-            --text-muted: #a1a1aa;
-            --border: #2e2e38;
+            --accent-dim: rgba(99, 102, 241, 0.15);
+            --border: #222226;
+            --danger: #f43f5e;
+            --success: #10b981;
+            --nav-bg: #111115;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f4f4f7;
+            --card-bg: #ffffff;
+            --card-sub: #f9fafb;
+            --text-main: #111827;
+            --text-muted: #6b7280;
+            --accent: #4f46e5;
+            --accent-dim: rgba(79, 70, 229, 0.1);
+            --border: #e5e7eb;
+            --danger: #e11d48;
+            --success: #059669;
+            --nav-bg: #e2e8f0;
+        }
+
+        [data-theme="glass"] {
+            --bg-color: #0d1117;
+            --card-bg: rgba(255, 255, 255, 0.06);
+            --card-sub: rgba(255, 255, 255, 0.03);
+            --text-main: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.6);
+            --accent: #0071e3;
+            --accent-dim: rgba(0, 113, 227, 0.2);
+            --border: rgba(255, 255, 255, 0.12);
+            --danger: #ff453a;
+            --success: #30d158;
+            --nav-bg: rgba(255, 255, 255, 0.04);
         }
 
         * {
@@ -24,261 +56,470 @@
         }
 
         body {
-            background-color: var(--bg);
+            background-color: var(--bg-color);
             color: var(--text-main);
-            overflow-x: hidden;
-            position: relative;
-            padding-bottom: 60px;
-        }
-
-        /* Artistic Scattered Background Icons Canvas */
-        .bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
-        }
-
-        .floating-icon {
-            position: absolute;
-            font-size: 28px;
-            opacity: 0.15;
-            filter: blur(0.5px);
-            animation: floatSlow 8s infinite ease-in-out;
-        }
-
-        @keyframes floatSlow {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(10deg); }
-        }
-
-        /* Main Structural Containers */
-        header {
-            text-align: center;
-            padding: 60px 20px;
-            position: relative;
-        }
-
-        header h1 {
-            font-size: 36px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            margin-bottom: 8px;
-            background: linear-gradient(to right, #ffffff, #a1a1aa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        header p {
-            color: var(--accent);
-            font-size: 13px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .showcase-container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .grid-layout {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 25px;
-        }
-
-        @media (min-width: 768px) {
-            .grid-layout {
-                grid-template-columns: 3fr 2fr;
-            }
-            .full-width-block {
-                grid-column: span 2;
-            }
-        }
-
-        /* Desk Scrapboard Cards Design */
-        .desk-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card-tag {
-            display: inline-flex;
+            display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 6px;
-            font-size: 11px;
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            color: var(--accent);
-            margin-bottom: 12px;
-            background: var(--accent-glow);
-            padding: 4px 10px;
-            border-radius: 20px;
-        }
-
-        .desk-card h2 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        /* Interactive Video Block (Cinema Theater) */
-        .video-wrapper {
+            min-height: 100vh;
+            padding: 20px;
+            transition: background 0.3s ease;
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            background: #000;
-            margin-top: 15px;
+            overflow-x: hidden;
         }
 
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 15% 20%, #1e1b4b 0%, transparent 45%),
+                        radial-gradient(circle at 85% 80%, #2e1065 0%, transparent 45%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        [data-theme="glass"]::before { opacity: 1; }
+
+        .container {
             width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Lyric Peek Selector Deck */
-        .track-list {
+            max-width: 850px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            margin-bottom: 15px;
+            min-height: 500px;
         }
 
-        .track-row {
-            background: var(--surface-card);
-            border: 1px solid var(--border);
-            padding: 12px 16px;
-            border-radius: 8px;
-            cursor: pointer;
+        /* HEADER NAVIGATION BAR */
+        .top-nav-bar {
+            background: var(--nav-bg);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: all 0.2s;
+            display: none;
         }
 
-        .track-row:hover {
-            border-color: var(--accent);
-            transform: translateX(4px);
+        .nav-logo {
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--text-main);
         }
 
-        .track-row.active {
-            background: var(--accent-glow);
-            border-color: var(--accent);
+        .nav-icons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
         }
 
-        .lyric-display-box {
-            background: #0d0d11;
+        .nav-btn {
+            background: var(--card-sub);
             border: 1px solid var(--border);
-            padding: 16px;
-            border-radius: 8px;
-            font-family: "Courier New", Courier, monospace;
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 6px;
             font-size: 13px;
-            line-height: 1.6;
-            color: var(--text-muted);
-            min-height: 120px;
-            max-height: 180px;
-            overflow-y: auto;
-            white-space: pre-wrap;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+        .nav-btn:hover { background: var(--border); }
+        .nav-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+        .logout-btn {
+            background: rgba(244, 63, 94, 0.1);
+            border: 1px solid var(--danger);
+            color: var(--danger);
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
         }
 
-        /* Director Profile Formatting */
-        .profile-bio {
-            font-size: 14px;
-            line-height: 1.6;
-            color: var(--text-muted);
+        /* SLIDE-OUT SETTINGS PANEL */
+        .settings-drawer {
+            position: fixed;
+            top: 0;
+            right: -340px;
+            width: 320px;
+            height: 100%;
+            background: var(--card-bg);
+            border-left: 1px solid var(--border);
+            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+            z-index: 100;
+            transition: right 0.3s ease;
+            padding: 25px;
+            overflow-y: auto;
         }
-        .profile-bio p {
-            margin-bottom: 12px;
+        .settings-drawer.open { right: 0; }
+        .settings-drawer h3 { margin-bottom: 15px; font-size: 16px; border-bottom: 1px solid var(--border); padding-bottom: 6px; color: var(--text-main); }
+        .settings-drawer h4 { font-size: 12px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; margin-top: 14px;}
+
+        /* LOGIN WINDOW */
+        .login-box { padding: 60px 20px; max-width: 360px; margin: auto; text-align: center; }
+        .login-box h2 { font-size: 20px; margin-bottom: 22px; font-weight: 600; }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin: 6px 0;
+            background-color: var(--card-sub);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 6px;
+        }
+        button:hover { opacity: 0.9; }
+
+        button:disabled {
+            background-color: var(--border) !important;
+            color: var(--text-muted) !important;
+            cursor: not-allowed !important;
+            opacity: 0.6;
+        }
+
+        /* VIEWS */
+        .view-content { padding: 30px; display: none; flex-grow: 1; }
+        .view-content.active { display: block; }
+        
+        .section { background: var(--card-sub); padding: 22px; border-radius: 10px; margin-bottom: 22px; border: 1px solid var(--border); }
+        .management-only { display: none; border-color: #6d28d9; }
+
+        .status-badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-weight: 600; font-size: 12px; }
+        .status-out { background: rgba(244,63,94,0.1); color: var(--danger); }
+        .status-in { background: rgba(16,185,129,0.1); color: var(--success); }
+
+        .log-item { background: var(--card-bg); padding: 10px; border-radius: 6px; margin-top: 8px; font-size: 14px; border: 1px solid var(--border); border-left: 3px solid var(--accent); }
+        .feedback-deck { background: var(--card-bg); padding: 15px; border-radius: 8px; margin-top: 15px; border: 1px solid var(--border); }
+        .reaction-btn { width: auto; display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; margin-right: 10px; background: var(--card-sub); border: 1px solid var(--border); margin-top: 0; }
+
+        /* Progress Bar for Earnings Payout System */
+        .progress-bar-container {
+            width: 100%;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            height: 12px;
+            border-radius: 6px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #34d399);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        /* Staff Directory Cards */
+        .directory-card { 
+            background: var(--card-sub); 
+            padding: 14px; 
+            border-radius: 8px; 
+            margin-top: 10px; 
+            border: 1px solid var(--border); 
+            font-size: 13px; 
+            line-height: 1.4; 
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .directory-card:hover { 
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+        .directory-card strong { color: var(--accent); font-size: 14px; }
+        .error-msg { color: var(--danger); margin-top: 10px; font-size: 13px; display: none; }
+        
+        /* Progress Banner Style */
+        .construction-banner {
+            background: rgba(99, 102, 241, 0.08);
+            border: 1px dashed var(--accent);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-main);
+            margin-top: 10px;
+        }
+
+        .owner-profile-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 10px 10px;
+        }
+
+        /* Interactive Bio Pop-Up Window */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(5px);
+            z-index: 200;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 450px;
+            padding: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            position: relative;
+        }
+
+        /* Lockout notice layout banner */
+        .lockout-notice {
+            background: rgba(244, 63, 94, 0.08);
+            border: 1px dashed var(--danger);
+            color: var(--danger);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            text-align: center;
+            margin-bottom: 15px;
+            display: none;
         }
     </style>
 </head>
 <body>
 
-    <!-- Background Art Canvas Layer -->
-    <div class="bg-canvas">
-        <span class="floating-icon" style="top: 15%; left: 8%; animation-delay: 0s;">🎥</span>
-        <span class="floating-icon" style="top: 45%; left: 5%; animation-delay: 2s;">✏️</span>
-        <span class="floating-icon" style="top: 75%; left: 12%; animation-delay: 4s;">🎹</span>
-        <span class="floating-icon" style="top: 25%; right: 8%; animation-delay: 1s;">🎤</span>
-        <span class="floating-icon" style="top: 55%; right: 4%; animation-delay: 3s;">🎬</span>
-        <span class="floating-icon" style="top: 85%; right: 10%; animation-delay: 5s;">📝</span>
+    <!-- INTERACTIVE BIO MODAL POP-UP -->
+    <div id="bioModal" class="modal-overlay" onclick="closeBioModal(event)">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h3 id="modalName" style="font-size: 20px; margin-bottom: 2px; color: var(--text-main);">Staff Name</h3>
+            <p id="modalRole" style="color: var(--accent); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 15px;">Role</p>
+            
+            <div style="background: var(--card-sub); border: 1px solid var(--border); padding: 15px; border-radius: 8px; font-size: 14px; line-height: 1.5; margin-bottom: 20px;">
+                <h4 style="font-size: 12px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px;">About Me</h4>
+                <p id="modalBioText" style="color: var(--text-main);"></p>
+            </div>
+            <button onclick="document.getElementById('bioModal').style.display='none'" style="margin: 0; padding: 10px;">Close Profile</button>
+        </div>
     </div>
 
-    <!-- Website Header Header -->
-    <header>
-        <h1>Carell Productions™</h1>
-        <p>Arts • Architecture • Film</p>
-    </header>
+    <!-- SIDE SETTINGS PANEL -->
+    <div id="settingsDrawer" class="settings-drawer">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <h3 style="margin: 0; border: none; padding: 0;">Settings</h3>
+            <button class="nav-btn" onclick="toggleSettings()" style="margin: 0; padding: 5px 10px;">✕</button>
+        </div>
 
-    <!-- Main Dynamic Interface Grid -->
-    <div class="showcase-container">
-        <div class="grid-layout">
+        <!-- Color Style Option Panel -->
+        <div>
+            <h4>App Style Theme</h4>
+            <select id="themeSelect" onchange="changeSystemTheme()">
+                <option value="charcoal">Deep Charcoal</option>
+                <option value="light">Light Mode</option>
+                <option value="glass">Apple Liquid Glass</option>
+            </select>
+        </div>
+
+        <!-- Credentials Mod Block -->
+        <div id="credentialsControlBox">
+            <h4>Change Login Info</h4>
+            <input type="text" id="editUsername" placeholder="Username">
+            <input type="password" id="editPassword" placeholder="Password">
             
-            <!-- FEATURE 1: DYNAMIC MUSIC VIDEO PLAYER -->
-            <div class="desk-card full-width-block">
-                <div class="card-tag">🎥 Production Screening Room</div>
-                <h2>Featured Video Release</h2>
-                <p style="color: var(--text-muted); font-size: 14px;">Take a look inside our latest multimedia development piece.</p>
-                
-                <div class="video-wrapper">
-                    <!-- Replace the YouTube ID 'dQw4w9WgXcQ' with your own music video ID later! -->
-                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <h4>Your Contact Card</h4>
+            <input type="text" id="editPhone" placeholder="Phone Number">
+            <input type="text" id="editEmail" placeholder="Email Address">
+            
+            <button id="saveProfileBtn" onclick="updateAccountInfo()" style="padding: 10px; font-size: 13px; margin-top: 10px;">Save Profile Info</button>
+            <p id="settingsStatus" style="font-size: 12px; color: var(--success); margin-top: 6px; display: none;">✓ Changes saved successfully!</p>
+        </div>
+
+        <!-- Staff List Presentation Deck -->
+        <div style="margin-top: 25px;">
+            <h3 style="margin-bottom: 4px;">Staff Directory</h3>
+            <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 10px;">💡 Click a teammate to view their bio.</p>
+            <div id="directoryContainer">
+                <!-- Javascript fills this dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CENTRAL PLATFORM CONTAINER -->
+    <div class="container">
+        
+        <!-- HEADER TOOLBAR NAVIGATION -->
+        <div id="topNav" class="top-nav-bar">
+            <div class="nav-logo">Carell Productions™</div>
+            <div class="nav-icons">
+                <button id="homeTabBtn" class="nav-btn active" onclick="switchView('home')">🏠 Home</button>
+                <button id="draftsTabBtn" class="nav-btn" onclick="switchView('drafts')">✏️ Film Drafts</button>
+                <button id="aboutTabBtn" class="nav-btn" onclick="switchView('about')">👤 About the Owner</button>
+                <button class="nav-btn" onclick="toggleSettings()">⚙️ Settings</button>
+                <button class="logout-btn" onclick="handleLogout()">Log Out</button>
+            </div>
+        </div>
+
+        <!-- SIGN IN COMPONENT -->
+        <div id="loginScreen" class="login-box">
+            <h2>Sign In</h2>
+            <input type="text" id="username" placeholder="Username" autocomplete="off">
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="handleLogin()">Sign In</button>
+            <div id="errorMsg" class="error-msg">Incorrect username or password</div>
+        </div>
+
+        <!-- APP DASHBOARD SCREEN -->
+        <div id="dashboardScreen" style="display: none; flex-grow: 1; flex-direction: column;">
+            
+            <!-- VIEW 1: CLEAN HOME SCREEN GREETING -->
+            <div id="homeView" class="view-content active">
+                <!-- Guest Alert lockout banner block notice -->
+                <div id="guestLockoutNotice" class="lockout-notice">
+                    🔒 You are currently logged in as a <strong>Guest</strong>. System changes and file alterations have been blocked.
+                </div>
+
+                <div class="section" style="text-align: center; padding: 50px 20px;">
+                    <h2 id="welcomeText" style="font-size: 28px; font-weight: 700; margin-bottom: 6px;">Welcome</h2>
+                    <p id="roleText" style="color: var(--accent); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Title: Staff Member</p>
+                </div>
+
+                <div class="section">
+                    <h3>Director Notes From Cannon</h3>
+                    <div id="ownerRepliesBox" style="background: var(--card-bg); padding: 14px; border-radius: 6px; margin-bottom: 15px; border: 1px solid var(--border); font-size: 14px; line-height: 1.5;">
+                        <span style="color: var(--text-muted); font-style: italic;">No alerts pinned by Cannon yet.</span>
+                    </div>
+                </div>
+
+                <!-- DYNAMIC TIME CLOCK TERMINAL -->
+                <div id="timeclockSection" class="section">
+                    <h3>Time Clock Terminal</h3>
+                    <p style="margin-top: 5px; font-size: 14px; color: var(--text-muted);">
+                        Current Status: <span id="currentStatus" class="status-badge status-out">Clocked Out</span>
+                    </p>
+                    <p style="margin-top: 8px; font-size: 15px; font-weight: 500; color: var(--text-main);">
+                        ⏱️ Your Weekly Accumulated Log: <span id="weeklyAccumulator" style="color: var(--accent); font-family: monospace; font-weight: bold;">00h 00m 00s</span>
+                    </p>
+                    
+                    <button id="clockBtn" onclick="toggleClock()" style="background-color: var(--success); width: auto; padding: 10px 20px; margin-top: 12px;">Clock In</button>
+                    <p style="font-size: 11px; color: var(--text-muted); margin-top: 10px;" id="timeLog">Last Record: None</p>
+                </div>
+
+                <!-- NEW COMPONENT: STUDIO EARNINGS & PAYOUT MATRIX -->
+                <div class="section" style="border-left: 4px solid var(--success);">
+                    <h3>💰 Studio Earnings & Payout Matrix</h3>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">
+                        Profits are securely aggregated here. Once studio earnings hit the **$100.00** threshold milestone, resources are unlocked and distributed among active production teammates.
+                    </p>
+                    
+                    <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 15px; margin-top: 14px; text-align: center;">
+                        <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted);">Current Saved Profit Pool</div>
+                        <div id="profitDisplay" style="font-size: 32px; font-weight: 800; color: #10b981; margin: 4px 0;">$0.00 / $100.00</div>
+                        
+                        <div class="progress-bar-container">
+                            <div id="progressBarFill" class="progress-bar-fill"></div>
+                        </div>
+                        <div id="payoutMilestoneNotice" style="font-size: 12px; margin-top: 8px; font-weight: 600; color: #a78bfa; display: none;">
+                            🎉 $100 Goal Reached! Director will now initiate employee payout distribution.
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- FEATURE 2: INTERACTIVE LYRICS SNEAK PEEK -->
-            <div class="desk-card">
-                <div class="card-tag">🎤 Album Board Outlines</div>
-                <h2>Interactive Track Sneak Peeks</h2>
-                <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 15px;">Tap an upcoming track file to peek directly at the lyric notebook drafts.</p>
-                
-                <div class="track-list">
-                    <div class="track-row active" onclick="showLyrics('track1', this)">
-                        <span>🎼 1. Project "Secret" Intro</span>
-                        <span style="font-size: 11px; color: var(--accent);">Tap Draft →</span>
-                    </div>
-                    <div class="track-row" onclick="showLyrics('track2', this)">
-                        <span>🎹 2. Concrete Architectural Lines</span>
-                        <span style="font-size: 11px; color: var(--accent);">Tap Draft →</span>
-                    </div>
-                    <div class="track-row" onclick="showLyrics('track3', this)">
-                        <span>📝 3. Midnight Scene Outline</span>
-                        <span style="font-size: 11px; color: var(--accent);">Tap Draft →</span>
+            <!-- VIEW 2: PRODUCTION FILM DRAFTS & SCRIPTS -->
+            <div id="draftsView" class="view-content">
+                <div class="section" style="border-color: var(--accent);">
+                    <h3>Shared Film Script Board</h3>
+                    <select id="projectSelect" onchange="loadProjectScript()">
+                        <option value="Secret">Project: "Secret" Album Scripts & Tracklists</option>
+                        <option value="General">General Production Notes & Outlines</option>
+                    </select>
+                    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;" id="lastSavedText">Last Synced: Never</p>
+                    <textarea id="scriptArea" rows="12" style="font-size: 14px; line-height: 1.5;" placeholder="Type ideas, lyrics, or scene dialogue blocks here. Hit save to push files into device sync memory."></textarea>
+                    <button id="saveScriptBtn" onclick="saveScript()" style="background-color: var(--accent);">Save Script File</button>
+                    <p id="saveStatus" style="font-size: 12px; color: var(--success); margin-top: 8px; display: none;">✓ Changes saved to system profile configuration.</p>
+
+                    <div class="feedback-deck">
+                        <h4 style="margin-bottom: 10px; color: var(--text-main); font-size: 13px;">Project Review Matrix</h4>
+                        <div style="margin-bottom: 12px;">
+                            <button class="reaction-btn" id="likeBtn" onclick="submitReaction('like')">👍 <span id="likeCount">0</span></button>
+                            <button class="reaction-btn" id="dislikeBtn" onclick="submitReaction('dislike')">👎 <span id="dislikeCount">0</span></button>
+                        </div>
+                        <div id="commentBox" style="font-size: 13px; color: var(--text-main); background: var(--card-sub); padding: 12px; border-radius: 6px; border-left: 3px solid var(--accent); line-height: 1.5;">
+                            <span style="font-weight: 600; color: var(--accent);">Cannon's Feedback:</span> <span id="commentText" style="color: var(--text-muted);">No review comments attached to this outline yet.</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="lyric-display-box" id="lyricBox">Loading track draft sheets...</div>
+                <!-- OWNER PANEL (CANNON ONLY) -->
+                <div id="managementSection" class="section management-only">
+                    <h3 style="color: #a78bfa; font-size: 16px; border-bottom: 1px solid #4c1d95; padding-bottom: 8px; margin-bottom: 15px;">Director Panel (Cannon Only)</h3>
+                    
+                    <!-- NEW: MASTER PROFIT CONTROLLER PANEL -->
+                    <div style="margin-bottom: 20px; background: var(--card-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border);">
+                        <h4 style="margin:0 0 6px 0; color:var(--text-main); font-size: 13px;">Adjust Total Studio Saved Profit ($)</h4>
+                        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">Enter current overall profits here to push values onto staff screens.</p>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="number" id="ownerProfitInput" placeholder="Ex: 50.00" style="margin:0; max-width: 150px;">
+                            <button onclick="adjustStudioProfit()" style="background-color: var(--success); width: auto; padding: 0 20px; margin:0;">Update Profit Pool</button>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 20px; background: var(--card-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border);">
+                        <h4 style="margin:0 0 6px 0; color:var(--text-main);">Pin Note to Home Screen Display</h4>
+                        <textarea id="ownerReplyInput" rows="2" placeholder="Write a response message or tracking note..."></textarea>
+                        <button onclick="sendOwnerReply()" style="background-color: var(--success); width: auto; padding: 8px 16px; font-size: 13px;">Post Note</button>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="margin:0 0 6px 0; color:var(--text-main);">Attach Comment Review to Project</h4>
+                        <input type="text" id="executiveCommentInput" placeholder="Add an official evaluation comment...">
+                        <button onclick="saveExecutiveComment()" style="background-color: var(--accent); width: auto; padding: 8px 16px; font-size: 13px;">Submit Comment</button>
+                    </div>
+
+                    <div>
+                        <h4 style="margin:0 0 6px 0; color:var(--text-main);">Staff Telemetry Tracking Log</h4>
+                        <div id="masterClockBox" style="max-height: 180px; overflow-y: auto; background: var(--card-bg); padding: 12px; border-radius: 6px; border: 1px solid var(--border);">
+                            <p style="color: var(--text-muted); font-style: italic; font-size: 13px;">No session logs tracked yet.</p>
+                        </div>
+                        <button onclick="clearClockLogs()" style="background-color: var(--card-bg); color: var(--danger); border: 1px solid var(--border); font-size: 11px; padding: 6px 12px; width: auto; margin-top: 10px;">Clear Clock Records</button>
+                    </div>
+                </div>
             </div>
 
-            <!-- FEATURE 3: CLEAN DIRECTOR'S NOTEBOOK BIO -->
-            <div class="desk-card">
-                <div class="card-tag">✏️ From the Studio Desk</div>
-                <h2>Meet the Architect</h2>
-                <div class="profile-bio" style="margin-top: 12px;">
-                    <p>Growing up in a home full of musical expression and performance art, creating visual and sonic experiences became second nature from a very young age.</p>
-                    <p>Fusing music production, film directing, and architectural structure, I construct original multi-sensory worlds.</p>
-                    <p style="color: var(--text-main); font-weight: 500;">— Cannon, Upcoming Professional Director</p>
+            <!-- VIEW 3: ABOUT THE OWNER (BIOGRAPHY SCREEN) -->
+            <div id="aboutView" class="view-content">
+                <div class="section owner-profile-box">
+                    <h2 style="font-size: 26px; font-weight: 700; margin-bottom: 4px;">Cannon</h2>
+                    <p style="color: var(--accent); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">Founder, Director & Architect</p>
+                    
+                    <div style="text-align: left; font-size: 15px; line-height: 1.6; color: var(--text-main); background: var(--card-bg); padding: 22px; border-radius: 8px; border: 1px solid var(--border);">
+                        <p style="margin-bottom: 12px;">From back where I can remember, my mom was always singing around me and doing artsy, musical things in our home. Growing up in that creative atmosphere, I naturally picked it up right away and started diving into music from a very young age.</p>
+                        <p style="margin-bottom: 12px;">As I grew, my passion expanded into acting and film directing, allowing me to start bringing visual stories to life. From there, I discovered a love for structural design and got heavily into architecture.</p>
+                        <p>Today, I am a multi-talented arts and architecture 14-year-old upcoming professional, leading development on original productions and designs.</p>
+                    </div>
                 </div>
             </div>
 
@@ -286,25 +527,434 @@
     </div>
 
     <script>
-        // Interactive Database for Lyric Draft Previews
-        const lyricDatabase = {
-            track1: `[Project "Secret" Intro - Verse 1]\n\nHidden keys on a grand scale,\nTracing lines where the plans fail.\nBehind curtains, the tape spins wide,\nWelcome to the space we build inside...`,
-            track2: `[Concrete Architectural Lines - Chorus]\n\nDraw the blueprint, frame the light,\nStructured notes moving through the night.\nFrom foundations up to the sky,\nWe make the shapes that never die...`,
-            track3: `[Midnight Scene Outline - Bridge]\n\n(Camera cuts to a low light view)\nSteps echo down a quiet room,\nPiano fading out into the gloom.\nAction speaks before the words can run,\nWe tell the stories under the sun...`
-        };
-
-        function showLyrics(trackKey, element) {
-            // Update active track styles
-            document.querySelectorAll('.track-row').forEach(row => row.classList.remove('active'));
-            element.classList.add('active');
-            
-            // Switch current text inside the viewer frame
-            document.getElementById('lyricBox').innerText = lyricDatabase[trackKey];
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playClickSound() {
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(580, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.07);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.07);
+            } catch(e) {}
         }
 
-        // Initialize the viewer page with the first track configuration load
+        function getAccounts() {
+            let accounts = localStorage.getItem('cp_accounts');
+            if (!accounts) {
+                const defaultAccounts = {
+                    "AA": { 
+                        name: "Alia", 
+                        pass: "Alia7778881028", 
+                        role: "Assistant Executive Producer", 
+                        phone: "777-888-1028", 
+                        email: "alia@carellproductions.com",
+                        bio: "Profile biography currently under construction...",
+                        isGuest: false
+                    },
+                    "Cannon": { 
+                        name: "Cannon", 
+                        pass: "CB Canon 777-888-1127", 
+                        role: "Company Owner & Director", 
+                        phone: "777-888-1127", 
+                        email: "cannon@carellproductions.com",
+                        bio: "From back where I can remember, my mom was always singing around me and doing artsy, musical things.",
+                        isGuest: false
+                    },
+                    "Audrii": {
+                        name: "Audrii",
+                        pass: "1234",
+                        role: "Official Corporate Guest",
+                        phone: "Hidden Profile",
+                        email: "guest@carellproductions.com",
+                        bio: "Logged in under secure Spectator mode.",
+                        isGuest: true
+                    }
+                };
+                localStorage.setItem('cp_accounts', JSON.stringify(defaultAccounts));
+                return defaultAccounts;
+            }
+            return JSON.parse(accounts);
+        }
+
+        let currentUser = null;
+        let currentUserKey = null;
+        let isClockedIn = false;
+        let liveTimerInterval = null;
+        let clockSessionStartTime = null;
+
         window.onload = function() {
-            document.getElementById('lyricBox').innerText = lyricDatabase.track1;
+            const activeTheme = localStorage.getItem('cp_system_theme') || 'charcoal';
+            document.documentElement.setAttribute('data-theme', activeTheme);
+            document.getElementById('themeSelect').value = activeTheme;
+
+            const savedUserKey = localStorage.getItem('cp_active_session_user');
+            const accounts = getAccounts();
+            if (savedUserKey && accounts[savedUserKey]) {
+                setupDashboard(savedUserKey);
+            }
+            renderDirectory();
+            refreshProfitDisplay();
+        }
+
+        function toggleSettings() {
+            playClickSound();
+            document.getElementById('settingsDrawer').classList.toggle('open');
+        }
+
+        function openBioModal(userKey) {
+            playClickSound();
+            const accounts = getAccounts();
+            const person = accounts[userKey];
+            if (person) {
+                document.getElementById('modalName').innerText = person.name;
+                document.getElementById('modalRole').innerText = person.role;
+                document.getElementById('modalBioText').innerText = person.bio || "No profile bio written yet.";
+                document.getElementById('bioModal').style.display = 'flex';
+            }
+        }
+
+        function closeBioModal(event) {
+            document.getElementById('bioModal').style.display = 'none';
+        }
+
+        function switchView(viewName) {
+            playClickSound();
+            document.querySelectorAll('.view-content').forEach(view => view.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            
+            if(viewName === 'home') {
+                document.getElementById('homeView').classList.add('active');
+                document.getElementById('homeTabBtn').classList.add('active');
+                refreshProfitDisplay();
+            } else if(viewName === 'drafts') {
+                document.getElementById('draftsView').classList.add('active');
+                document.getElementById('draftsTabBtn').classList.add('active');
+                loadProjectScript();
+            } else if(viewName === 'about') {
+                document.getElementById('aboutView').classList.add('active');
+                document.getElementById('aboutTabBtn').classList.add('active');
+            }
+        }
+
+        function handleLogin() {
+            playClickSound();
+            const userIn = document.getElementById('username').value.trim();
+            const passIn = document.getElementById('password').value;
+            const errorElement = document.getElementById('errorMsg');
+            const accounts = getAccounts();
+
+            if (accounts[userIn] && accounts[userIn].pass === passIn) {
+                localStorage.setItem('cp_active_session_user', userIn);
+                errorElement.style.display = 'none';
+                setupDashboard(userIn);
+            } else {
+                errorElement.style.display = 'block';
+            }
+        }
+
+        function setupDashboard(userKey) {
+            currentUserKey = userKey;
+            const accounts = getAccounts();
+            currentUser = accounts[userKey];
+            
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('topNav').style.display = 'flex';
+            document.getElementById('dashboardScreen').style.display = 'flex';
+            
+            document.getElementById('welcomeText').innerText = `Welcome, ${currentUser.name}`;
+            document.getElementById('roleText').innerText = `Title: ${currentUser.role}`;
+            
+            document.getElementById('editUsername').value = userKey;
+            document.getElementById('editPassword').value = currentUser.pass;
+            document.getElementById('editPhone').value = currentUser.phone || "";
+            document.getElementById('editEmail').value = currentUser.email || "";
+
+            loadOwnerReplies();
+            updateAccumulatorDisplay();
+            
+            if (currentUser.isGuest) {
+                document.getElementById('guestLockoutNotice').style.display = 'block';
+                document.getElementById('timeclockSection').style.display = 'none';
+                document.getElementById('managementSection').style.display = 'none';
+                document.getElementById('saveScriptBtn').disabled = true;
+                document.getElementById('scriptArea').placeholder = "🔒 READ ONLY MODE.";
+                document.getElementById('credentialsControlBox').style.display = 'none';
+            } else {
+                document.getElementById('guestLockoutNotice').style.display = 'none';
+                document.getElementById('timeclockSection').style.display = 'block';
+                document.getElementById('saveScriptBtn').disabled = false;
+                document.getElementById('credentialsControlBox').style.display = 'block';
+
+                if (userKey === "Cannon") {
+                    document.getElementById('managementSection').style.display = 'block';
+                    document.getElementById('ownerProfitInput').value = localStorage.getItem('cp_studio_profit') || "0.00";
+                    loadOwnerDashboard();
+                } else {
+                    document.getElementById('managementSection').style.display = 'none';
+                }
+            }
+            
+            renderDirectory();
+        }
+
+        // ACCUMULATED CLOCK MATH TRACKER ENGINE
+        function getWeeklySeconds() {
+            let weeklyData = JSON.parse(localStorage.getItem('cp_weekly_seconds')) || {};
+            return weeklyData[currentUserKey] || 0;
+        }
+
+        function saveWeeklySeconds(secs) {
+            let weeklyData = JSON.parse(localStorage.getItem('cp_weekly_seconds')) || {};
+            weeklyData[currentUserKey] = secs;
+            localStorage.setItem('cp_weekly_seconds', JSON.stringify(weeklyData));
+        }
+
+        function formatTimeDisplay(totalSeconds) {
+            let hrs = Math.floor(totalSeconds / 3600);
+            let mins = Math.floor((totalSeconds % 3600) / 60);
+            let secs = totalSeconds % 60;
+            return `${hrs.toString().padStart(2, '0')}h ${mins.toString().padStart(2, '0')}m ${secs.toString().padStart(2, '0')}s`;
+        }
+
+        function updateAccumulatorDisplay() {
+            let currentStored = getWeeklySeconds();
+            document.getElementById('weeklyAccumulator').innerText = formatTimeDisplay(currentStored);
+        }
+
+        function toggleClock() {
+            playClickSound();
+            if (currentUser && currentUser.isGuest) return;
+
+            const statusBadge = document.getElementById('currentStatus');
+            const btn = document.getElementById('clockBtn');
+            const log = document.getElementById('timeLog');
+            const now = new Date();
+            const nowStr = now.toLocaleString([], {month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit'});
+
+            let textAction = "";
+            if (!isClockedIn) {
+                // STARTING LIVE TIMER SESSION
+                isClockedIn = true;
+                clockSessionStartTime = Date.now();
+                
+                statusBadge.innerText = "Clocked In";
+                statusBadge.className = "status-badge status-in";
+                btn.innerText = "Clock Out";
+                btn.style.backgroundColor = "var(--danger)";
+                textAction = `Clocked In on ${nowStr}`;
+                
+                // Fire up live screen tick interval counters
+                let initialStoredSecs = getWeeklySeconds();
+                liveTimerInterval = setInterval(() => {
+                    let elapsedSecs = Math.floor((Date.now() - clockSessionStartTime) / 1000);
+                    document.getElementById('weeklyAccumulator').innerText = formatTimeDisplay(initialStoredSecs + elapsedSecs);
+                }, 1000);
+
+            } else {
+                // ENDING LIVE TIMER SESSION
+                isClockedIn = false;
+                clearInterval(liveTimerInterval);
+                
+                let sessionElapsedSeconds = Math.floor((Date.now() - clockSessionStartTime) / 1000);
+                let newTotalSeconds = getWeeklySeconds() + sessionElapsedSeconds;
+                saveWeeklySeconds(newTotalSeconds);
+                updateAccumulatorDisplay();
+                
+                statusBadge.innerText = "Clocked Out";
+                statusBadge.className = "status-badge status-out";
+                btn.innerText = "Clock In";
+                btn.style.backgroundColor = "var(--success)";
+                textAction = `Clocked Out on ${nowStr} (Session: +${Math.floor(sessionElapsedSeconds/60)}m)`;
+            }
+            
+            log.innerText = `Last Action: ${textAction}`;
+
+            let clockLogs = JSON.parse(localStorage.getItem('cp_clock_logs')) || [];
+            clockLogs.unshift({ user: currentUser.name, action: textAction });
+            localStorage.setItem('cp_clock_logs', JSON.stringify(clockLogs));
+            if (currentUserKey === "Cannon") loadOwnerDashboard();
+        }
+
+        // REFRESH STUDIO PROFIT ENGINE DISPLAYS
+        function refreshProfitDisplay() {
+            let currentProfit = parseFloat(localStorage.getItem('cp_studio_profit')) || 0.00;
+            document.getElementById('profitDisplay').innerText = `$${currentProfit.toFixed(2)} / $100.00`;
+            
+            // Calculate progress ceiling bar matching the $100 payout goal parameters
+            let percentage = Math.min((currentProfit / 100) * 100, 100);
+            document.getElementById('progressBarFill').style.width = `${percentage}%`;
+
+            if (currentProfit >= 100) {
+                document.getElementById('payoutMilestoneNotice').style.display = 'block';
+            } else {
+                document.getElementById('payoutMilestoneNotice').style.display = 'none';
+            }
+        }
+
+        function adjustStudioProfit() {
+            playClickSound();
+            if (currentUserKey !== "Cannon") return;
+            let val = parseFloat(document.getElementById('ownerProfitInput').value) || 0.00;
+            localStorage.setItem('cp_studio_profit', val.toFixed(2));
+            refreshProfitDisplay();
+        }
+
+        // Standard App Operations
+        function updateAccountInfo() {
+            playClickSound();
+            if (currentUser && currentUser.isGuest) return;
+            const accounts = getAccounts();
+            const newUsername = document.getElementById('editUsername').value.trim();
+            const newPassword = document.getElementById('editPassword').value;
+            const newPhone = document.getElementById('editPhone').value.trim();
+            const newEmail = document.getElementById('editEmail').value.trim();
+            const statusLabel = document.getElementById('settingsStatus');
+
+            if (newUsername !== "" && newPassword !== "") {
+                const profileData = accounts[currentUserKey];
+                profileData.pass = newPassword;
+                profileData.phone = newPhone;
+                profileData.email = newEmail;
+
+                if (newUsername !== currentUserKey) {
+                    delete accounts[currentUserKey];
+                    accounts[newUsername] = profileData;
+                    currentUserKey = newUsername;
+                    localStorage.setItem('cp_active_session_user', newUsername);
+                } else {
+                    accounts[currentUserKey] = profileData;
+                }
+
+                localStorage.setItem('cp_accounts', JSON.stringify(accounts));
+                setupDashboard(currentUserKey);
+                statusLabel.style.display = 'block';
+                setTimeout(() => { statusLabel.style.display = 'none'; }, 3000);
+            }
+        }
+
+        function renderDirectory() {
+            const accounts = getAccounts();
+            const container = document.getElementById('directoryContainer');
+            container.innerHTML = "";
+            for (let key in accounts) {
+                const person = accounts[key];
+                container.innerHTML += `
+                    <div class="directory-card" onclick="openBioModal('${key}')">
+                        <strong>${person.name}</strong><br>
+                        <span style="color:var(--text-muted); font-size:12px;">${person.role}</span>
+                    </div>
+                `;
+            }
+        }
+
+        function changeSystemTheme() {
+            playClickSound();
+            const selectedTheme = document.getElementById('themeSelect').value;
+            document.documentElement.setAttribute('data-theme', selectedTheme);
+            localStorage.setItem('cp_system_theme', selectedTheme);
+        }
+
+        function handleLogout() {
+            playClickSound();
+            if (isClockedIn) toggleClock(); // Force log clock session out if page breaks away
+            localStorage.removeItem('cp_active_session_user');
+            currentUser = null;
+            currentUserKey = null;
+            document.getElementById('loginScreen').style.display = 'block';
+            document.getElementById('topNav').style.display = 'none';
+            document.getElementById('dashboardScreen').style.display = 'none';
+            document.getElementById('settingsDrawer').classList.remove('open');
+            switchView('home');
+        }
+
+        function saveScript() {
+            playClickSound();
+            if (currentUser && currentUser.isGuest) return;
+            const currentProject = document.getElementById('projectSelect').value;
+            const content = document.getElementById('scriptArea').value;
+            const now = new Date().toLocaleString([], {hour: '2-digit', minute:'2-digit'});
+            localStorage.setItem(`cp_script_${currentProject}`, content);
+            localStorage.setItem(`cp_script_time_${currentProject}`, `Last edit by ${currentUser.name} at ${now}`);
+            document.getElementById('saveStatus').style.display = 'block';
+            document.getElementById('lastSavedText').innerText = `Last edit by ${currentUser.name} at ${now}`;
+            setTimeout(() => { document.getElementById('saveStatus').style.display = 'none'; }, 3000);
+        }
+
+        function loadProjectScript() {
+            const currentProject = document.getElementById('projectSelect').value;
+            const savedContent = localStorage.getItem(`cp_script_${currentProject}`);
+            document.getElementById('scriptArea').value = savedContent ? savedContent : "";
+            const savedTime = localStorage.getItem(`cp_script_time_${currentProject}`);
+            document.getElementById('lastSavedText').innerText = savedTime ? savedTime : "Last Synced: Never";
+            document.getElementById('likeCount').innerText = localStorage.getItem(`cp_likes_${currentProject}`) || "0";
+            document.getElementById('dislikeCount').innerText = localStorage.getItem(`cp_dislikes_${currentProject}`) || "0";
+            const savedComment = localStorage.getItem(`cp_comment_${currentProject}`);
+            document.getElementById('commentText').innerText = savedComment ? savedComment : "No notes added yet.";
+        }
+
+        function submitReaction(type) {
+            playClickSound();
+            const currentProject = document.getElementById('projectSelect').value;
+            let countKey = `cp_${type}s_${currentProject}`;
+            let currentCount = parseInt(localStorage.getItem(countKey)) || 0;
+            currentCount++;
+            localStorage.setItem(countKey, currentCount);
+            document.getElementById(`${type}Count`).innerText = currentCount;
+        }
+
+        function saveExecutiveComment() {
+            playClickSound();
+            if (currentUserKey !== "Cannon") return;
+            const currentProject = document.getElementById('projectSelect').value;
+            const commentVal = document.getElementById('executiveCommentInput').value.trim();
+            if(commentVal !== "") {
+                localStorage.setItem(`cp_comment_${currentProject}`, commentVal);
+                document.getElementById('commentText').innerText = commentVal;
+                document.getElementById('executiveCommentInput').value = "";
+            }
+        }
+
+        function sendOwnerReply() {
+            playClickSound();
+            if (currentUserKey !== "Cannon") return;
+            const replyText = document.getElementById('ownerReplyInput').value.trim();
+            if(replyText !== "") {
+                const now = new Date().toLocaleString([], {month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit'});
+                localStorage.setItem('cp_owner_reply', `[${now}] Cannon: "${replyText}"`);
+                document.getElementById('ownerReplyInput').value = "";
+                loadOwnerReplies();
+            }
+        }
+
+        function loadOwnerReplies() {
+            const reply = localStorage.getItem('cp_owner_reply');
+            if(reply) document.getElementById('ownerRepliesBox').innerHTML = `<strong>Note:</strong> ${reply}`;
+        }
+
+        function loadOwnerDashboard() {
+            const clockContainer = document.getElementById('masterClockBox');
+            let clockLogs = JSON.parse(localStorage.getItem('cp_clock_logs')) || [];
+            if (clockLogs.length === 0) {
+                clockContainer.innerHTML = `<p style="color: var(--text-muted); font-style: italic; font-size: 13px;">No session logs tracked yet.</p>`;
+            } else {
+                clockContainer.innerHTML = clockLogs.map(l => `
+                    <div class="log-item" style="border-left-color: var(--success);">
+                        <strong>${l.user}</strong>: ${l.action}
+                    </div>
+                `).join('');
+            }
+        }
+
+        function clearClockLogs() {
+            playClickSound();
+            if (currentUserKey !== "Cannon") return;
+            localStorage.removeItem('cp_clock_logs');
+            loadOwnerDashboard();
         }
     </script>
 </body>
